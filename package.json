@@ -4,13 +4,15 @@
   "private": true,
   "homepage": "https://trevsm.github.io/r3f-starter-app/",
   "dependencies": {
+    "@react-three/cannon": "^0.5.3",
     "@react-three/drei": "^2.2.12",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-scripts": "^4.0.1",
     "react-spring": "^8.0.27",
     "react-three-fiber": "5.0.3",
-    "three": "^0.123.0"
+    "three": "^0.123.0",
+    "use-cannon": "^0.5.3"
   },
   "scripts": {
     "start": "react-scripts start ",
