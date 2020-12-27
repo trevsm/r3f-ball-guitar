@@ -27,6 +27,16 @@ const song = [
   'd3',
   'b2',
   '',
+  'g3',
+  'g3',
+  'f3',
+  'd3',
+  'e3',
+  '',
+  '',
+  '',
+  '',
+  '',
 
 ]
 
@@ -97,8 +107,11 @@ export const String = props => {
   })
 
   return (
-    <a.mesh ref={ref}>
-      <boxBufferGeometry attach="geometry" args={[width, 0.2, 0.2]} />
+    <a.mesh ref={ref} onClick={()=>{
+      playNote()
+      toggleActive()
+    }}>
+      <boxBufferGeometry attach="geometry" args={[width, .5, .5]} />
       <a.meshStandardMaterial attach="material" color={aProps.color} />
     </a.mesh>
   )
