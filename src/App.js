@@ -23,7 +23,6 @@ export default function App() {
       camera={{ position: [0, 0, 50], fov: 60 }}
     >
       <Lighting />
-      <OrbitControls />
       <Physics>
         <Balls bpm={bpm} count={count} ballSize={ballSize} p0={p0} radius={r} />
         <Strings stringCount={5} />

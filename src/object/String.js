@@ -8,21 +8,19 @@ const key = 'cdefgab'
 const oct = '1234'
 
 const noteToWidth = note => {
-  const a = note[0]
-  const b = note[1]
-  return a
+  const a = key.indexOf(note[0])
+  const b = oct.indexOf(note[1]) * key.length
+  return (((a + b) * 15) / 27) - 15
 }
 
 export const Strings = props => {
   let stringArr = []
   let pos = props.stringCount / 2
   for (let i = 0; i < props.stringCount; i++) {
+    let a = Math.floor(Math.random() * 6)
+    let b = Math.floor(Math.random() * 3)
     stringArr.push(
-      <String
-        position={[0, pos - i * 2, 0]}
-        size={[10, 0.2, 0.2]}
-        note={key[i] + oct[3]}
-      />
+      <String position={[0, pos - i * 2, 0]} note={key[a] + oct[b]} />
     )
   }
   return stringArr
@@ -34,10 +32,9 @@ export const String = props => {
   const [ref, api] = useBox(() => ({
     mass: 0,
     position: props.position,
-    args: [10, 0.2, 0.2],
+    args: [15, 0.2, 0.2],
     type: 'Dynamic',
     onCollide: e => {
-      console.log(noteToWidth(props.note))
       const synth = new Tone.Synth().toDestination()
       synth.triggerAttackRelease(props.note, '8n')
       setActive(true)
@@ -53,7 +50,10 @@ export const String = props => {
 
   return (
     <a.mesh ref={ref}>
-      <boxBufferGeometry attach="geometry" args={props.size} />
+      <boxBufferGeometry
+        attach="geometry"
+        args={[noteToWidth(props.note), 0.2, 0.2]}
+      />
       <a.meshStandardMaterial attach="material" color={aProps.color} />
     </a.mesh>
   )
