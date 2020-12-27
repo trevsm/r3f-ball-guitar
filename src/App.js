@@ -9,7 +9,7 @@ import { Strings } from './object/String'
 import './App.css'
 
 export default function App() {
-  const bpm = 125 // beats per min
+  const bpm = 100 // beats per min
   const count = 3 // number of balls
   const r = 30 // radius
   const ballSize = 1 // size of each ball
