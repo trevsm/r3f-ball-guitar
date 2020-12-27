@@ -13,7 +13,7 @@ export const Ball = props => {
   const t = useRef(props.startPos)
 
   useFrame(() => {
-    t.current -= props.speed / 41000
+    t.current += props.speed / 41000
 
     const v = [
       ((props.radius / 2) * Math.cos(t.current)) /
