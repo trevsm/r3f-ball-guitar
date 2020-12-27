@@ -3,26 +3,22 @@ import { useFrame } from 'react-three-fiber'
 import { useSphere } from '@react-three/cannon'
 
 export const Ball = props => {
-
   const [ref, api] = useSphere(() => ({
     mass: 0,
+    position: props.position,
     size: [props.ballSize, 32, 32],
   }))
-
-  const pos = props.position
 
   const t = useRef(props.startPos)
 
   useFrame(() => {
-    t.current += props.speed / 10000 + 0.0027
+    t.current += props.speed / 41000
 
     const v = [
-      pos[0] +
-        (props.radius * Math.cos(t.current)) /
-          (1 + Math.pow(Math.sin(t.current), 2)),
-      pos[1] +
-        (props.radius * Math.sin(t.current) * Math.cos(t.current)) /
-          (1 + Math.pow(Math.sin(t.current), 2)),
+      (props.radius/2 * Math.cos(t.current)) /
+        (1 + Math.pow(Math.sin(t.current), 2)),
+      (props.radius * Math.sin(t.current) * Math.cos(t.current)) /
+        (1 + Math.pow(Math.sin(t.current), 2)) - 3.5,
       0,
     ]
 
@@ -42,7 +38,7 @@ export const Ball = props => {
   )
 }
 
-export const Balls = (props) => {
+export const Balls = props => {
   let ballArr = []
   for (let i = 0; i < props.count; i++) {
     ballArr.push(

@@ -10,17 +10,18 @@ const oct = '1234'
 const noteToWidth = note => {
   const a = key.indexOf(note[0])
   const b = oct.indexOf(note[1]) * key.length
-  return (((a + b) * 15) / 27) - 15
+  return (((a + b) * 20) / 27) - 20
 }
 
 export const Strings = props => {
   let stringArr = []
-  let pos = props.stringCount / 2
-  for (let i = 0; i < props.stringCount; i++) {
+  let pos = 5 / 2
+  let sS = 3
+  for (let i = 0; i < 5; i++) {
     let a = Math.floor(Math.random() * 6)
     let b = Math.floor(Math.random() * 3)
     stringArr.push(
-      <String position={[0, pos - i * 2, 0]} note={key[a] + oct[b]} />
+      <String position={[0, pos - i * sS, 0]} note={key[a] + oct[b]} />
     )
   }
   return stringArr

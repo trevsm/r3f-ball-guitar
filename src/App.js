@@ -9,11 +9,11 @@ import { Strings } from './object/String'
 import './App.css'
 
 export default function App() {
-  const bpm = 10 // beats per min
+  const bpm = 125 // beats per min
   const count = 3 // number of balls
-  const r = 20 // radius
+  const r = 30 // radius
   const ballSize = 1 // size of each ball
-  const p0 = [0, 0, 0] // ball position
+  const p0 = [-100, -100, 0] // ball position
 
   return (
     <Canvas
@@ -24,7 +24,7 @@ export default function App() {
       <Lighting />
       <Physics>
         <Balls bpm={bpm} count={count} ballSize={ballSize} p0={p0} radius={r} />
-        <Strings stringCount={5} />
+        <Strings />
       </Physics>
     </Canvas>
   )
