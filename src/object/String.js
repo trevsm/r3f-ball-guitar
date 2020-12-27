@@ -1,40 +1,60 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
+import { useSpring, a } from 'react-spring/three'
+import * as Tone from 'tone'
+// import { MeshWobbleMaterial } from '@react-three/drei'
 import { useBox } from '@react-three/cannon'
-import { useFrame } from 'react-three-fiber'
+
+const key = 'cdefgab'
+const oct = '1234'
+
+const noteToWidth = note => {
+  const a = note[0]
+  const b = note[1]
+  return a
+}
+
+export const Strings = props => {
+  let stringArr = []
+  let pos = props.stringCount / 2
+  for (let i = 0; i < props.stringCount; i++) {
+    stringArr.push(
+      <String
+        position={[0, pos - i * 2, 0]}
+        size={[10, 0.2, 0.2]}
+        note={key[i] + oct[3]}
+      />
+    )
+  }
+  return stringArr
+}
 
 export const String = props => {
+  const [active, setActive] = useState(false)
+
   const [ref, api] = useBox(() => ({
-    mass: 1,
-    position: [0, 1, 0],
-    size: [2, 0.1, 0.1],
+    mass: 0,
+    position: props.position,
+    args: [10, 0.2, 0.2],
     type: 'Dynamic',
-    onCollide: (e) => {
-      console.log(e.target)
+    onCollide: e => {
+      console.log(noteToWidth(props.note))
+      const synth = new Tone.Synth().toDestination()
+      synth.triggerAttackRelease(props.note, '8n')
+      setActive(true)
+      setTimeout(() => {
+        setActive(false)
+      }, 200)
     },
-    tolerance: 10,
   }))
 
-  function resetMovement() {
-    api.position.set(0, 1, 0)
-    api.rotation.set(0, 0, 0)
-
-    ref.current.rotation.x = 0
-    ref.current.rotation.y = 0
-    ref.current.rotation.z = 0
-
-    ref.current.position.x = 0
-    ref.current.position.y = 1
-    ref.current.position.z = 0
-  }
-
-  useFrame(() => {
-    resetMovement()
+  const aProps = useSpring({
+    color: active ? 'red' : 'white',
   })
 
   return (
-    <mesh ref={ref}>
-      <boxBufferGeometry attach="geometry" args={[2, 0.1, 0.1]} />
-      <meshStandardMaterial attach="material" color={'peachpuff'} />
-    </mesh>
+    <a.mesh ref={ref}>
+      <boxBufferGeometry attach="geometry" args={props.size} />
+      <a.meshStandardMaterial attach="material" color={aProps.color} />
+    </a.mesh>
   )
 }
