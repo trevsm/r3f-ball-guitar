@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { Canvas } from 'react-three-fiber'
-import { OrbitControls } from '@react-three/drei'
 import { Physics } from '@react-three/cannon'
 import { Lighting } from './lighting/Lighting'
 import { Balls } from './object/Ball'
@@ -20,7 +19,7 @@ export default function App() {
     <Canvas
       shadowMap
       gl={{ alpha: false }}
-      camera={{ position: [0, 0, 50], fov: 60 }}
+      camera={{ position: [0, 0, 60], fov: 60 }}
     >
       <Lighting />
       <Physics>
